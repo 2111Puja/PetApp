@@ -7,23 +7,23 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/petImageView"
+        android:id="@+id/imageViewSnoopy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/green_orange_gradient_color_and_style_mobile_video_background__1_" />
+        app:srcCompat="@drawable/welcome_to_snoopy_your_tamagotchi_app" />
 
     <Button
-        android:id="@+id/startButton"
+        android:id="@+id/openButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="585dp"
-        android:layout_marginEnd="159dp"
-        android:layout_marginBottom="98dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="634dp"
+        android:layout_marginEnd="164dp"
+        android:layout_marginBottom="49dp"
         android:text="Get Started"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

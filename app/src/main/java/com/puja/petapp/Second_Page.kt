@@ -27,7 +27,6 @@ class Second_Page : AppCompatActivity() {
 
         // Initialize views
         petImageView = findViewById(R.id.petImageView)
-        statusTextView = findViewById(R.id.textView)
         feedButton = findViewById(R.id.feedButton)
         cleanButton = findViewById(R.id.cleanButton)
         playButton = findViewById(R.id.playButton)
@@ -36,17 +35,21 @@ class Second_Page : AppCompatActivity() {
 
         feedButton.setOnClickListener {
             feedPet()
-            updateStatus()
+            updateUI()
+            petImageView.setImageResource(R.drawable.dog_eating)
         }
 
         cleanButton.setOnClickListener {
             cleanPet()
-            updateStatus()
+            updateUI()
+            petImageView.setImageResource(R.drawable.dog_bathing)
         }
 
         playButton.setOnClickListener {
             playWithPet()
             updateStatus()
+            updateUI()
+            petImageView.setImageResource(R.drawable.dog_playing)
         }
 
         // Schedule periodic updates for the pet's status
@@ -60,22 +63,26 @@ class Second_Page : AppCompatActivity() {
         }, 5000) // Start after 5 seconds
     }
 
+    private fun updateUI() {
+        statusTextView.text = "Happiness: $happinessLevel%\nHygiene: $hygieneLevel%"
+    }
+
     private fun feedPet() {
-        happinessLevel += 20
+        happinessLevel += 10
         if (happinessLevel > 100) {
             happinessLevel = 100
         }
     }
 
     private fun cleanPet() {
-        hygieneLevel += 30
+        hygieneLevel += 20
         if (hygieneLevel > 100) {
             hygieneLevel = 100
         }
     }
 
     private fun playWithPet() {
-        happinessLevel += 10
+        happinessLevel += 30
         if (happinessLevel > 100) {
             happinessLevel = 100
         }
@@ -99,7 +106,7 @@ class Second_Page : AppCompatActivity() {
 
         // Update pet image based on happiness and hygiene levels
         if (happinessLevel >= 70 && hygieneLevel >= 70) {
-            petImageView.setImageResource(pet_happy)
+            petImageView.setImageResource(R.drawable.pet_happy)
         } else if (happinessLevel < 30 && hygieneLevel < 30) {
             petImageView.setImageResource(R.drawable.pet_sad)
         } else {

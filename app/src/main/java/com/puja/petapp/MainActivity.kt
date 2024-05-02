@@ -7,25 +7,21 @@ import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
 
-    //making use of the keyword lateinit
-    //this allows to declare variables and initialize at a later stage
+    // Declaring a lateinit variable to hold a reference to the "Open" Button
     private lateinit var openButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //find reference to the button bu using its ID
-        //initialize the variable by making use of its findviewby ID method
+        // Initializing the openButton by finding the Button view with the ID "openButton"
+        openButton = findViewById(R.id.openButton)
 
-        openButton = findViewById(R.id.startButton)
-
-        //making the button clickable
-        //we are making use of the onsetClickListener
-        //creating an Intent to access the MainActivity
-
+        // Setting an OnClickListener to handle button clicks
         openButton.setOnClickListener {
-            var intent = Intent(this, MainActivity::class.java)
+            // Creating an Intent to navigate to the Second_Page activity
+            val intent = Intent(this, Second_Page::class.java)
+            // Starting the Second_Page activity
             startActivity(intent)
         }
     }
