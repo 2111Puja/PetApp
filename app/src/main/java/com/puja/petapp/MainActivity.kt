@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         // Setting an OnClickListener to handle button clicks
         openButton.setOnClickListener {
             // Creating an Intent to navigate to the Second_Page activity
-            val intent = Intent(this, Second_Page::class.java)
+            var intent = Intent(this, Second_Page::class.java)
             // Starting the Second_Page activity
             startActivity(intent)
         }

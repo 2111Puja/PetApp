@@ -12,105 +12,98 @@ import kotlin.random.Random
 
 class Second_Page : AppCompatActivity() {
 
-    private lateinit var feedButton: Button
-    private lateinit var cleanButton: Button
-    private lateinit var playButton: Button
-    private lateinit var petImageView: ImageView
-    private lateinit var statusTextView: TextView
-
-    private var happinessLevel = 50
-    private var hygieneLevel = 50
+    //Declaring variables
+    private var hunger = 30
+    private var cleanliness = 60
+    private var happiness = 60
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second_page)
 
-        // Initialize views
-        petImageView = findViewById(R.id.petImageView)
-        feedButton = findViewById(R.id.feedButton)
-        cleanButton = findViewById(R.id.cleanButton)
-        playButton = findViewById(R.id.playButton)
+    //Declare the buttons
+    val cleanButton = findViewById<Button>(R.id.cleanButton)
+    val feedButton = findViewById<Button>(R.id.feedButton)
+    val playButton = findViewById<Button>(R.id.playButton)
+        val image = findViewById<ImageView>(R.id.imageView2)
 
-        updateStatus()
-
+        //To Initialise the Feed button
+        updateUI()
         feedButton.setOnClickListener {
             feedPet()
             updateUI()
-            petImageView.setImageResource(R.drawable.dog_eating)
+
+            //To shift the image
+
+            image.setImageResource(R.drawable.eating)
         }
 
+        //To Initialise the Clean Button
         cleanButton.setOnClickListener {
             cleanPet()
             updateUI()
-            petImageView.setImageResource(R.drawable.dog_bathing)
+
+            //To shift the image
+            image.setImageResource(R.drawable.bathing)
         }
 
+        //To initialise the Play Button
         playButton.setOnClickListener {
             playWithPet()
-            updateStatus()
             updateUI()
-            petImageView.setImageResource(R.drawable.dog_playing)
+
+            //To shift the image
+            image.setImageResource(R.drawable.playing)
         }
-
-        // Schedule periodic updates for the pet's status
-        val handler = Handler(Looper.getMainLooper())
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                simulateTimePassing()
-                updateStatus()
-                handler.postDelayed(this, 5000) // Update every 5 seconds
-            }
-        }, 5000) // Start after 5 seconds
     }
 
-    private fun updateUI() {
-        statusTextView.text = "Happiness: $happinessLevel%\nHygiene: $hygieneLevel%"
-    }
-
+    //feedPet Method
     private fun feedPet() {
-        happinessLevel += 10
-        if (happinessLevel > 100) {
-            happinessLevel = 100
-        }
+        hunger += 5
+        happiness +=10
+        if (hunger > 100) happiness -=5
+        cleanliness -= 5
+        if (happiness > 100) happiness -=15
+        if (hunger <0) hunger += 5
+        if (happiness < 0) happiness += 0
+        if (cleanliness == 0) cleanliness += 5
+        if (cleanliness == 0) happiness -= 10
     }
 
-    private fun cleanPet() {
-        hygieneLevel += 20
-        if (hygieneLevel > 100) {
-            hygieneLevel = 100
-        }
-    }
-
+    //playWithPet Method
     private fun playWithPet() {
-        happinessLevel += 30
-        if (happinessLevel > 100) {
-            happinessLevel = 100
-        }
+        happiness += 5
+        hunger -= 10
+        cleanliness -= 15
+        if (happiness > 100) happiness == 100
+        if (hunger < 0) hunger += 5
+        if (cleanliness == 0) cleanliness +=5
+        if (hunger ==0) happiness -= 10
+        if (cleanliness == 0) happiness -=10
     }
+    //cleanPet Method
+    private fun cleanPet() {
+        happiness +=5
+        cleanliness += 10
+        if (happiness > 100) happiness == 100
+        if (hunger < 0) hunger += 4
+        if (happiness <0) happiness == 0
+        if (cleanliness == 0) cleanliness +=5
+        if (hunger == 0) happiness -= 10
 
-    private fun simulateTimePassing() {
-        // Decrease happiness and hygiene over time
-        happinessLevel -= Random.nextInt(3, 6)
-        if (happinessLevel < 0) {
-            happinessLevel = 0
-        }
-
-        hygieneLevel -= Random.nextInt(2, 5)
-        if (hygieneLevel < 0) {
-            hygieneLevel = 0
-        }
     }
+    //updateUI Method
+    private fun updateUI() {
 
-    private fun updateStatus() {
-        statusTextView.text = "Happiness: $happinessLevel%\nHygiene: $hygieneLevel%"
+        //To Declare the 3 sets
+        val textViewHappy = findViewById<TextView>(R.id.textViewHappy)
+        val textViewHunger = findViewById<TextView>(R.id.textViewHunger)
+        val textViewClean = findViewById<TextView>(R.id.textViewClean)
 
-        // Update pet image based on happiness and hygiene levels
-        if (happinessLevel >= 70 && hygieneLevel >= 70) {
-            petImageView.setImageResource(R.drawable.pet_happy)
-        } else if (happinessLevel < 30 && hygieneLevel < 30) {
-            petImageView.setImageResource(R.drawable.pet_sad)
-        } else {
-            petImageView.setImageResource(R.drawable.pet_normal)
-        }
+        //To initialise the 3 sets
+        textViewHappy.text = "Happy: $happiness"
+        textViewHunger.text = "Hunger: $hunger"
+        textViewClean.text = "Cleanliness: $cleanliness"
+
     }
 }
